@@ -17,9 +17,10 @@ COPY --chown=appuser:appuser query_range.py requirements.txt ./
 
 USER appuser
 
-RUN pip install --no-cache-dir --user -r requirements.txt && \
+RUN python3 -m venv venv && \
+    /home/metering/venv/bin/pip3 install --no-cache-dir -r requirements.txt && \
     rm -rf ~/.cache/pip
 
 EXPOSE 9090
 
-ENTRYPOINT ["python3", "query_range.py"]
+ENTRYPOINT ["/home/metering/venv/bin/python3", "query_range.py"]
